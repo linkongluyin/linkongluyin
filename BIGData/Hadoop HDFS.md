@@ -1,87 +1,5 @@
 [toc]
 
-
-
-# 大数据的概念
-
-## 什么是大数据
-
-大数据的出现，本质上是为了解决海量数据的处理难题。
-
-- 狭义上：大数据是一类技术栈，是一种用来处理海量数据的软件技术体系
-- 广义上：大数据是数字化时代、信息化时代的基础技术支撑，及数据为生活赋能
-
-
-
-## 大数据的特征
-
-- Volume体积：数据体量大
-  - 采集数据量大
-  - 存储数据量大
-  - 计算数据量大
-  - TB  PB级别起步
-- Variety种类：种类、来源多样化
-  - 种类：结构化、半结构化、非结构化
-  - 来源：日志文本、图片，音频、视频
-- Value：价值：低价值密度
-  - 信息海量但是价值密度低
-  - 深度复杂的挖掘分析需要机器学习的参与
-- Velocity：速度：速度快
-  - 数据增长速度快
-  - 获取数据速度快
-  - 数据处理速度快
-- Veracity：质量：数据的质量
-  - 数据的准确性
-  - 数据的可信赖度
-
-> 从海量的高增长，多类别，低信息密度的数据中挖掘出高质量的结果
->
-> - 数据存储：可以妥善存储海量待处理数据
-> - 数据计算：可以从海量数据中计算出背后的价值
-> - 数据传输：协助在各个环节中完成海量数据的传输
-
-
-
-# 大数据软件生态
-
-## 数据存储
-
-Apache Hadoop - HDFS：框架内的组件HDFS是大数据体系中使用最为广泛的分布式存储技术
-
-Apache HBase：是大数据体系内使用非常广泛的NoSQL KV型数据库技术；HBase是基于HDFS之上构建的
-
-Apache KUDU： 大数据体系中使用较多的分布式存储引擎
-
- 云平台存储组件：除上述之外，各大云平台厂商也有相应的大数据存储组件；如阿里云的OSS、AWS的S3、金山云的KS3等
-
- 
-
-## 数据计算
-
-Apache Hadoop - MapReduce：是最早一代的大数据分布式计算引擎，对大数据的发展有着卓越的贡献
-
-Apache  Hive 是一个款以SQL为主要开发语言的分布式计算框架。其底层使用了Hadoop的MapReduce技术
-
-Apache  Spark：是目前全球范围内最火热的分布式内存计算引擎，是大数据体系中的明星产品
-
-Apache  Flink：同样是一款明星级的大数据分布式内存计算引擎。特别是在实时计算（流计算）领域，Flink占据了大多数的国内市场。
-
-
-
-## 数据传输
-
-Apache Kafka：是一款分布式的消息系统，可以完成海量规模的数据传输工作，在大数据领域中也是明星产品
-
-Apache  Pulsar：是一款分布式的消息系统，在大数据领域同样有着非常多的使用者
-
-Apache Flume：是一款流式数据采集工具，可以从非常多的数据源中完成采集传输工作
-
-Apache Sqoop：是一款ETL工具，可以协助大数据体系和关系型数据库之间进行数据传输
-
-
-
-
-
 # Hadoop
 
 ## 概念
@@ -464,26 +382,245 @@ HDFS通Linux系统一样，均是以/作为根目录的组织形式
   - -h 人性化显示文件size
   - -R递归查看指定目录及其子目录
 
+3）上传文件到HDFS指定目录下
 
+- hadoop fs -put [-f] [-p] <localsrc> ... <dst>
+- hdfs dfs -put [-f] [-p] <localsrc> ... <dst>
+  - -f：覆盖目标文件（已存在下）
+  - -p：保留访问和修改时间，所有权和权限
+  - localsrc：本地文件系统（客户端所在机器）
+  - dst：目标文件系统（HDFS）
 
+4）查看HDFS文件内容
 
+- hadoop fs -cat <src>
 
+- hdfs dfs -cat <src>
 
+  读取大文件可以使用管道符配合more
 
-#### HDFS客户端 = Jetbrians产品插件
+  - hdfs dfs -cat <src> | more
+  - hdfs dfs -cat <src> | more
 
+5）下载HDFS文件
 
+- hadoop fs -get [-f] [-p] <src> ... <localdst>
 
+- hdfs dfs -get [-f] [-p] <src> ... <localdst>
 
+  下载文件到本地文件系统指定目录，localdst必须是目录
 
+  - -f：覆盖目标文件（已存在下）
+  - -p：保留访问和修改时间，所有权和权限
 
+6）拷贝HDFS文件
 
-#### HDFS客户端 - NFS
+- hadoop fs -cp [-f] <src> ... <dst>
+- hdfs dfs -cp [-f]  <src> ... <dst>
 
+7）追加数据到HDFS文件中
 
+- hadoop fs -appendToFile [-f] <localsrc> ... <dst>
+- hdfs dfs -appendToFile [-f] <localsrc> ... <dst>
+  - 将所有给定本地文件的内容追加到dst文件
+  - dst如果文件不存在，将创建该文件
+  - 如果<localsrc>为-，则输入为从标准输入中读取
 
+8）HDFS数据移动操作
 
+- hadoop fs -mv  <src> ... <dst>
+- hdfs dfs -mv <src> ... <dst>
+  - 移动文件到指定的路径
+  - 可以使用该命令移动数据，重命名文件
+
+9）HDFS删除操作
+
+- hadoop fs -rm -r [-skipTrash ] [URI]
+- hdfs dfs  -rm -r [-skipTrash ] [URI]
+  - 删除指定的路径的文件或文件夹
+  - -skipTrash 跳过回收站 直接删除
+
+> 回收站功能默认关闭，如果需要开启需要再core-site.xml文件内配置
+>
+> ```xml
+> <property> 
+>     	<name>fs.trash.interval</name> 
+>     	<value>1440</value> 
+> </property>
+> 
+> <property> 
+>     	<name>fs.trash.checkpoint.interval</name> 
+>     	<value>120</value> 
+> </property>  
+> ```
+>
+> 无需重启集群；在哪台机器上配置的，就在哪台机器执行命令生效
+>
+> 回收站位置默认在：/user/用户名(hadoop)./Trash
+
+官方命令：https://hadoop.apache.org/docs/r3.3.5/hadoop-project-dist/hadoop-common/FileSystemShell.html
 
 
 
 ### HDFS存储原理
+
+分布式存储：每个服务器（节点）存储文件的一部分
+
+设定统一的管理单位，block块
+
+block块，HDFS最小存储单位，每个256MB（可修改）
+
+数据是在HDFS上划分成一个个block块进行存储
+
+为了确保安全性，数据block有多个副本
+
+
+
+#### HDFS副本块数量的配置：
+
+在`hdf-site.xml`中配置如下属性：
+
+```xml
+<property> 
+    	<name>dfs.replication</name> 
+    	<value>3</value> 
+</property>  
+```
+
+> 这个属性默认是3，一般情况下无需主动配置（除非设置非3的数值）
+>
+> 如果需要自定义这个属性，需要再每一台服务器改该配置文件，并设置属性
+
+- 除了配置文件外，还可以在上传文件的时候，临时决定被上传文件以多少个副本存储。
+
+  `hadoop fs -D dfs.replication = 2 -put test.txt /tmp/`
+
+  如上命令，就可以在上传test.txt的时候，临时设置其副本数量为2
+
+- 对于已经存在的HDFS的文件，修改dfs.replication属性不会生效，如果修改已存在的文档可以通过命令`hadoop fs -setrep [-R] 2 path`
+
+  如上命令，指定path的内容将会修改为2个副本存储
+
+  -R选项可选，使用-R表示对子目录也生效
+
+
+
+#### fsck命令检查文件的副本数
+
+同时，我们可以使用hdfs提供的fsck命令来检查文件的副本数
+
+`hdfs fsck path [-files [-blocks [-locations]]]`
+
+fsck可以检查指定路径是否正常
+
+- -files 可以列出路径文件内的文件状态
+- -files -blocks 输出文件块报告（有几个块，多少副本）
+- -files -blocks -locations 输出每一个block的详情
+
+
+
+**block配置**
+
+对于块儿block，hdfs默认设置为256MB一个，也就是1G文件会被划分为4个block存储
+
+块的大小可以通过参数设置
+
+```xml
+<property> 
+    	<name>dfs.blocksize</name> 
+    	<value>2684356</value> 
+    	<description>设置hdfs块的大小，单位是b</description>
+</property>  
+```
+
+
+
+#### NameNode元数据
+
+
+
+![image-20230419135858274](https://raw.githubusercontent.com/linkongluyin/images/main/image-20230419135858274.png)
+
+
+
+1）edits文件
+
+edits文件，是一个流水账文件，记录了hdfs中的每一次操作，以及本次操作影响的文件其对应的block
+
+![](https://raw.githubusercontent.com/linkongluyin/images/main/edits%25E6%2596%2587%25E4%25BB%25B6.png)
+
+2）fsimages文件
+
+将全部的edits文件，合并为最终结果，得到一个fsimage文件
+
+记录某一时间节点的当前文件系统全部文件的状态和信息，维护整个文件系统元数据。
+
+
+
+#### NameNode元数据管理维护
+
+NameNode基于edits文件和FsImage的配合，完成整个文件系统文件的管理。
+
+- 每次对HDFS大的操作，均被edits文件记录
+- edits达到大小上线后，开启新的edits记录
+- 定期进行edits的合并操作
+  - 如果当前没有fsimage文件，将全部的edits合并为第一个fsimage
+  - 如果已经㛮了fsimage文件，将全部的edits和已经存在的fsimage进行合并，形成in新的fsimage
+- 重复上述流程
+
+
+
+#### 元数据合并控制参数
+
+对于元数据合并，是一个定时过程；基于
+
+- dfs.namenode.chechpoint.period，默认3600秒，即一小时
+- dfs.namenode.checkpoint.txns，默认100000，即100w次事务
+
+> 只要有一个达到条件的就执行
+>
+> 检查是否达到条件，默认60秒检查一次，基于：
+>
+> `dfs.namenode.checkpoint.check.period`，默认60s决定
+
+
+
+#### SecondaryNameNode的作用
+
+![](https://raw.githubusercontent.com/linkongluyin/images/main/202304182217509.png)
+
+合并元数据的事情是他做的；NameNode主要写edits，fsimage是他做的
+
+SecondaryNameNode会通过http从NameNode拉取数据（edits和fsimage），然后合并完成后提供NameNode使用。
+
+
+
+#### HDFS数据读写流程
+
+![image-20230419141806538](https://raw.githubusercontent.com/linkongluyin/images/main/image-20230419141806538.png)
+
+1. 客户端向NameNode发起请求
+2. NameNode审核权限、剩余空间后，满足条件允许写入，斌告知客户端写入的DataNode地址
+3. 客户端向指定的DataNode发送数据包
+4. 被写入数据的DataNode同时万数据副本的复制工作，将其接收的数据分发给其他的DataNode
+5. 如上图；DataNode1复制给DataNode2，然后基于DataNode2复制给DataNode3和DataNode4
+6. 写入完成客户端通知NameNode，NameNode做元数据记录工作
+
+> - NameNode不负责数据写入，只负责元数据记录和权限审批
+> - 客户端直接向1台DataNode写数据，这个DataNode一般是离客户端最近（网络距离）的那一个
+> - 数据块副本的复制工作，由DataNode之间自行完成（构建一个pipeline，按书序复制分发，如上图1给2,2给3和4）
+
+
+
+#### 数据读取流程
+
+![image-20230419142518462](https://raw.githubusercontent.com/linkongluyin/images/main/image-20230419142518462.png)
+
+1. 客户端向NameNode申请读取某文件
+2. NameNode判断客户端权限等细节，允许读取，并返回此文件的block列表
+3. 客户端拿到block列表后自行寻找DataNode读取即可
+
+> - 数据同样不通过NameNode提供
+> - NameNode提供的block列表，会基于网络距离计算尽量提供离客户端最近的
+> - 因为一个block有三分，会尽量找离客户端醉经的那一份让其读取
+
