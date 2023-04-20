@@ -308,6 +308,8 @@ Geomesa的官方网站（https://www.geomesa.org/）提供了各种版本的Geom
 
 这些安装包可以从Geomesa的官方网站上下载。根据自己的需求选择合适的安装包进行下载和安装。
 
+
+
 ## https://github.com/locationtech/geomesa/releases/download/geomesa-4.0.1/geomesa-cassandra_2.12-4.0.1-bin.tar.gz 这个安装包是geomesa的安装包么？
 
 是的，您提供的链接是Geomesa 4.0.1版本的Cassandra模块的二进制压缩包，可以用于在Cassandra中存储和查询地理空间数据。这个安装包包含了Geomesa Cassandra模块的所有二进制文件和依赖库，可以在Linux、macOS等操作系统上使用。如果您想要在Cassandra中使用Geomesa，请下载这个安装包并按照Geomesa和Cassandra的安装部署示例进行操作。需要注意的是，这个安装包只包含了Cassandra模块，如果您需要使用其他模块（例如HBase、Kafka等），需要下载相应的安装包。
