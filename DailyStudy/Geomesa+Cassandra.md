@@ -297,23 +297,6 @@ geomesa-cassandra export -c cassandra -f myfeature -q "BBOX(location,40,-80,41,-
 
 
 
-## 官网中那个是geomesa的安装包
-
-Geomesa的官方网站（https://www.geomesa.org/）提供了各种版本的Geomesa安装包。具体来说，以下是常见的几种安装包：
-
-1. Binary Tarball：二进制压缩包，包含了Geomesa的所有二进制文件和依赖库。可以在Linux、macOS等操作系统上使用。这个安装包通常以geomesa-<version>-bin.tar.gz的形式命名，其中<version>指Geomesa的版本号。
-2. RPM Package：RPM安装包，可以在Red Hat、CentOS等Linux发行版上使用。这个安装包通常以geomesa-<version>-1.noarch.rpm的形式命名，其中<version>指Geomesa的版本号。
-3. Debian Package：Debian安装包，可以在Debian、Ubuntu等Linux发行版上使用。这个安装包通常以geomesa_<version>_all.deb的形式命名，其中<version>指Geomesa的版本号。
-4. Source Tarball：源代码压缩包，包含了Geomesa的所有源代码。需要手动编译和安装。这个安装包通常以geomesa-<version>-src.tar.gz的形式命名，其中<version>指Geomesa的版本号。
-
-这些安装包可以从Geomesa的官方网站上下载。根据自己的需求选择合适的安装包进行下载和安装。
 
 
 
-## https://github.com/locationtech/geomesa/releases/download/geomesa-4.0.1/geomesa-cassandra_2.12-4.0.1-bin.tar.gz 这个安装包是geomesa的安装包么？
-
-是的，您提供的链接是Geomesa 4.0.1版本的Cassandra模块的二进制压缩包，可以用于在Cassandra中存储和查询地理空间数据。这个安装包包含了Geomesa Cassandra模块的所有二进制文件和依赖库，可以在Linux、macOS等操作系统上使用。如果您想要在Cassandra中使用Geomesa，请下载这个安装包并按照Geomesa和Cassandra的安装部署示例进行操作。需要注意的是，这个安装包只包含了Cassandra模块，如果您需要使用其他模块（例如HBase、Kafka等），需要下载相应的安装包。
-
-## 这个安装包是包含了Cassandra的安装包么
-
-不是的，这个安装包只包含了Geomesa的Cassandra模块的二进制文件和依赖库，不包含Cassandra的安装包。如果您还没有安装Cassandra，需要先下载并安装Cassandra，然后再下载并安装Geomesa的Cassandra模块。Geomesa的Cassandra模块需要连接到已经运行的Cassandra实例，并在其中创建Keyspace和表，以存储和查询地理空间数据。因此，在安装Geomesa的Cassandra模块之前，请确保您已经正确安装和配置了Cassandra。您可以参考Geomesa和Cassandra的安装部署示例进行操作。
