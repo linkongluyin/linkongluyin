@@ -31,6 +31,24 @@
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
         </dependency>
+        <!-- Geomesa Cassandra依赖 -->
+        <dependency>
+            <groupId>org.locationtech.geomesa</groupId>
+            <artifactId>geomesa-cassandra-datastore_2.11</artifactId>
+            <version>3.3.0</version>
+        </dependency>
+
+        <!-- Geotools依赖 -->
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-shapefile</artifactId>
+            <version>23.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.geotools</groupId>
+            <artifactId>gt-swing</artifactId>
+            <version>23.2</version>
+        </dependency>
     </dependencies>
 
 </project>
